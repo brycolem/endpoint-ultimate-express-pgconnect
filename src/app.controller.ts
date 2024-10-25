@@ -12,6 +12,7 @@ export class ApplicationController {
       const applications = await this.service.getAllApplications();
       res.status(200).json(applications);
     } catch (error) {
+      console.error("Error in getApplications (controller):", error);
       res.status(500).json({ error: 'Failed to fetch applications' });
     }
   }

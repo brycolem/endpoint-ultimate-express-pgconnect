@@ -3,6 +3,7 @@ import { Application } from './model/application.js';
 
 export class ApplicationService {
   async getAllApplications(): Promise<Application[]> {
+    try {
     return await db.any(`
       SELECT
         applications.id,
@@ -24,6 +25,11 @@ export class ApplicationService {
       LEFT JOIN notes ON applications.id = notes.application_id
       GROUP BY applications.id;
     `);
+    }
+    catch (error) {
+      console.error("Error in getAllApplications (service):", error);
+      throw error;
+    }
   }
 
   async getApplication(id: number): Promise<Application> {
